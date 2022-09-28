@@ -2,7 +2,7 @@ from crypto import hash_password
 
 
 class User:
-    def __init__(self, _id, username, password, salt):
+    def __init__(self, username='', password='', salt=''):
         self._id = -1
         self.username = username
         self._hashed_password = hash_password(password, salt)
