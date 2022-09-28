@@ -1,7 +1,7 @@
 from psycopg2 import connect, OperationalError
 from psycopg2.errors import DuplicateDatabase, DuplicateTable
 
-CREATE_DB = "CREATE DATABASE message-server;"
+CREATE_DB = "CREATE DATABASE message_server;"
 
 CREATE_USERS_TABLE = """CREATE TABLE users (
     id serial PRIMARY KEY,
@@ -15,14 +15,13 @@ CREATE_MESSAGES_TABLE = """CREATE TABLE messages (
     text varchar(255),
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"""
 
-DB_USER = "coderslab"
+DB_USER = "postgres"
 DB_PASSWORD = "password"
 DB_HOST = "127.0.0.1"
 
 # create database
 try:
-    conn = connect(database="message-server",
-                   user=DB_USER,
+    conn = connect(user=DB_USER,
                    password=DB_PASSWORD,
                    host=DB_HOST)
     conn.autocommit = True
@@ -39,7 +38,7 @@ except OperationalError as e:
 
 # create tables
 try:
-    conn = connect(database="message-server",
+    conn = connect(database="message_server",
                    user=DB_USER,
                    password=DB_PASSWORD,
                    host=DB_HOST)
