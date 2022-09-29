@@ -59,8 +59,6 @@ class User:
             loaded_user._id = id_
             loaded_user._hashed_password = hashed_password
             return loaded_user
-        else:
-            return None
 
     @staticmethod
     def load_all_users(cursor):
@@ -116,7 +114,7 @@ class Message:
     @staticmethod
     def load_all_messages(cursor, user_id=None):
         if user_id:
-            sql = "SELECT id, from_id, to_id, text, creation_date FROM messages WHERE id=%s"
+            sql = "SELECT id, from_id, to_id, text, creation_date FROM messages WHERE to_id=%s"
             cursor.execute(sql, (user_id,))
         else:
             sql = "SELECT id, from_id, to_id, text, creation_date FROM messages"
@@ -126,9 +124,6 @@ class Message:
             id_, from_id, to_id, text, creation_date = row
             loaded_message = Message(from_id, to_id, text)
             loaded_message._id = id_
-            loaded_message.from_id = from_id
-            loaded_message.to_id = to_id
-            loaded_message.text = text
             loaded_message._creation_date = creation_date
             messages.append(loaded_message)
             return messages
