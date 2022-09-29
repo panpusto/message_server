@@ -126,4 +126,4 @@ class Message:
             loaded_message._id = id_
             loaded_message._creation_date = creation_date
             messages.append(loaded_message)
-            return messages
+        return messages
