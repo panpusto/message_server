@@ -30,7 +30,11 @@ class User:
             cursor.execute(sql, values)
             self._id = cursor.fetchone()[0]
             return True
-        return False
+        else:
+            sql = "UPDATE users SET username=%s, hashed_password=%s WHERE id=%s"
+            values = (self.username, self.hashed_password, self.id)
+            cursor.execute(sql, values)
+            return True
 
     @staticmethod
     def load_user_by_username(cursor, username):
@@ -103,7 +107,11 @@ class Message:
             cursor.execute(sql, values)
             self._id, self._creation_date = cursor.fetchone()
             return True
-        return False
+        else:
+            sql = "UPDATE messages SET from_id=%s, to_id=%s, text=%s WHERE id=%s"
+            values = (self.from_id, self.to_id, self.text, self.id)
+            cursor.execute(sql, values)
+            return True
 
     @staticmethod
     def load_all_messages(cursor, user_id=None):
